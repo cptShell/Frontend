@@ -1,9 +1,9 @@
 import React from "react";
-import Registration from "./Registration";
-import './styles/index.scss'
-import './styles/normalize.scss'
-import logo from './assets/logo/codebrologo.svg'
-import Login from "./Login";
+import Registration from "../Registration/Registration";
+import '../../styles/index.scss'
+import '../../styles/normalize.scss'
+import logo from '../../assets/logo/codebrologo.svg'
+import Login from "../Login/Login";
 
 function App() {
 
