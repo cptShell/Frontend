@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes shakeInput {
+    0% {
+        transform: translateX(-10px);
+    }
+    25% {
+        transform: translateX(10px);
+
+    }
+    50% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+
+    }
+    100% {
+        transform: translateX(-10px);
+    }
+}
+.uncorrectInput {
+    border: 2px solid red;
+    animation-name: shakeInput;
+    animation-duration: 0.2s;
+
+}

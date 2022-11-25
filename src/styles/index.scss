@@ -19,27 +19,32 @@
         width: 115px;
     }
 }
-
+.form {
+    &__input {
+        padding: 10px 20px;
+        &:focus {
+            outline: 2px solid #bbb;
+        }
+        &:not(:first-child) {
+            margin: 30px 0;
+        }
+    }
+}
 .authorization-block {
 
     &__google-input {
         margin-bottom: 20px;
     }
-
+    & div {
+        margin: 40px 0;
+    }
     &__text {
         text-align: center;
         color: #AAAAAA;
         font-size: 18px;
     }
 
-    &__mail {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
 
-    &__password {
-        margin-bottom: 20px;
-    }
 
     &__create-account {
         width: 100%;
