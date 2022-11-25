@@ -19,6 +19,11 @@ function Registration({changeAuth}) {
 			mode: 'no-cors',
 			method: "POST",
 			body: JSON.stringify(data),
+			headers: {
+				"Content-type": "application/json",
+				"Content-length": JSON.stringify(data).length,
+				"Accept": "*/*"
+			}
 		})
 			.then(data => data.json())
 			.then(r => console.log(r))
