@@ -1,7 +1,14 @@
-import React, {useState} from "react";
-import {useForm} from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
-function Registration({changeAuth}) {
+function Registration({ changeAuth }) {
+
+
+	const [checkPassword, setcheckPassword] = useState(false);
+
+	const clickCheckPassword = () => {
+		setcheckPassword(!checkPassword);
+	}
 
 	const {
 		register,
@@ -32,12 +39,12 @@ function Registration({changeAuth}) {
 	return (
 
 		<form className="block__authorization authorization-block"
-		      onSubmit={handleSubmit(onSubmit)}
-		      noValidate
+			onSubmit={handleSubmit(onSubmit)}
+			noValidate
 		>
 
 			<div>
-				<input type="text" className="authorization-block__google-input form__input "/>
+				<input type="text" className="authorization-block__google-input form__input " />
 			</div>
 
 			<span className="authorization-block__text">or</span>
@@ -61,7 +68,7 @@ function Registration({changeAuth}) {
 					})}
 
 					type="email" className={errors?.email ? "authorization-block__password form__input relative" +
-					" border-red-500" : "authorization-block__password form__input relative"} placeholder="Email"
+						" border-red-500" : "authorization-block__password form__input relative"} placeholder="Email"
 
 				/>
 				{errors.email &&
@@ -87,13 +94,16 @@ function Registration({changeAuth}) {
 
 					})}
 
-					type="password" className={errors?.password ? "authorization-block__password form__input relative" +
-					" border-red-500" : "authorization-block__password form__input relative"}
+					type={checkPassword ? 'text' : 'password'} className={errors?.password ? "authorization-block__password form__input relative" +
+						" border-red-500" : "authorization-block__password form__input relative"}
 					placeholder="Password"
 
 				/>
 				{errors.password &&
 					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
+
+				<span onClick={clickCheckPassword} className={checkPassword ? 'plus open' : 'plus'}></span>
+
 			</div>
 
 
