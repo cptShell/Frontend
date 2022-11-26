@@ -12,11 +12,10 @@ function Registration({changeAuth}) {
 	} = useForm({
 		mode: "onBlur"
 	})
-
+	const url = "http://127.0.0.1:8000"
 	const onSubmit = (data, e) => {
 		e.preventDefault()
-		fetch("http://127.0.0.1:8000/users/user/", {
-			mode: 'no-cors',
+		fetch(`${url}/users/user/`, {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
