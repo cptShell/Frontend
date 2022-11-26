@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function Registration({ changeAuth }) {
-
-
-	const [checkPassword, setcheckPassword] = useState(false);
-
-	const clickCheckPassword = () => {
-		setcheckPassword(!checkPassword);
-	}
+function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 
 	const {
 		register,

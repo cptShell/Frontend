@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {useForm} from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
-function Login({changeAuth}) {
+function Login({ changeAuth, clickCheckPassword, checkPassword }) {
 	const {
 		register,
 		formState: {
@@ -29,11 +29,13 @@ function Login({changeAuth}) {
 	}
 	return (
 		<form className="block__authorization authorization-block"
-		      onSubmit={handleSubmit(onSubmit)}
-		      noValidate
+			onSubmit={handleSubmit(onSubmit)}
+			noValidate
 		>
 
-			<input type="text" className="authorization-block__google-input form__input"/>
+			<div>
+				<input type="text" className="authorization-block__google-input form__input" />
+			</div>
 
 			<span className="authorization-block__text">or</span>
 
@@ -56,8 +58,8 @@ function Login({changeAuth}) {
 
 					})}
 					type="text" className={errors?.name ? "authorization-block__password form__input relative" +
-					" border-red-500" : "authorization-block__password form__input relative"}
-					placeholder="Email or Login"/>
+						" border-red-500" : "authorization-block__password form__input relative"}
+					placeholder="Email or Login" />
 				{errors.name &&
 					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.name?.message || "Error!"}</p>}
 			</div>
@@ -80,16 +82,18 @@ function Login({changeAuth}) {
 
 					})}
 
-					type="password" className={errors?.password ? "authorization-block__password form__input relative" +
-					" border-red-500" : "authorization-block__password form__input relative"} placeholder="Password"/>
+					type={checkPassword ? 'text' : 'password'} className={errors?.password ? "authorization-block__password form__input relative" +
+						" border-red-500" : "authorization-block__password form__input relative"} placeholder="Password" />
 
 				{errors.password &&
 					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
+
+				<span onClick={clickCheckPassword} className={checkPassword ? 'plus open' : 'plus'}></span>
 			</div>
 			<button className="authorization-block__create-account">Log in</button>
 
 			<p className="authorization-block__log-in">No account?
-				<span className="authorization-block__link" onClick={changeAuth}>Create one</span>
+				<span className="authorization-block__link" onClick={changeAuth}> Create one</span>
 			</p>
 
 		</form>
