@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function Login({ changeAuth, clickCheckPassword, checkPassword }) {
+function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
+
 	const {
 		register,
 		formState: {
@@ -14,7 +15,7 @@ function Login({ changeAuth, clickCheckPassword, checkPassword }) {
 	const url = "http://127.0.0.1:8000"
 	const onSubmit = (data, e) => {
 		e.preventDefault()
-		fetch(`${url}/users/login/`, {
+		fetch(`${url}/users/user/`, {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
@@ -27,21 +28,22 @@ function Login({ changeAuth, clickCheckPassword, checkPassword }) {
 			.then(r => console.log(r))
 		console.log(JSON.stringify(data))
 	}
+
 	return (
+
 		<form className="block__authorization authorization-block"
 			onSubmit={handleSubmit(onSubmit)}
 			noValidate
 		>
 
 			<div>
-				<input type="text" className="authorization-block__google-input form__input" />
+				<input type="text" className="authorization-block__google-input form__input " />
 			</div>
 
 			<span className="authorization-block__text">or</span>
-
-			<div className="relative">
+			<div className={"relative"}>
 				<input
-					{...register("name", {
+					{...register("email", {
 						required: "Обязательное поле",
 						minLength: {
 							value: 5,
@@ -57,16 +59,19 @@ function Login({ changeAuth, clickCheckPassword, checkPassword }) {
 						},
 
 					})}
-					type="text" className={errors?.name ? "authorization-block__password form__input relative" +
-						" border-red-500" : "authorization-block__password form__input relative"}
-					placeholder="Email or Login" />
-				{errors.name &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.name?.message || "Error!"}</p>}
+
+					type="email" className={errors?.email ? "authorization-block__password form__input relative" +
+						" border-red-500" : "authorization-block__password form__input relative"} placeholder="Email"
+
+				/>
+				{errors.email &&
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.email?.message || "Error!"}</p>}
 			</div>
+
 			<div className={"relative"}>
 				<input
 					{...register("password", {
-						required: "Обязателное поле",
+						required: "Обязательное поле",
 						minLength: {
 							value: 4,
 							message: "Минимальная длина 4 символов"
@@ -83,18 +88,25 @@ function Login({ changeAuth, clickCheckPassword, checkPassword }) {
 					})}
 
 					type={checkPassword ? 'text' : 'password'} className={errors?.password ? "authorization-block__password form__input relative" +
-						" border-red-500" : "authorization-block__password form__input relative"} placeholder="Password" />
+						" border-red-500" : "authorization-block__password form__input relative"}
+					placeholder="Password"
 
+				/>
 				{errors.password &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
 
 				<span onClick={clickCheckPassword} className={checkPassword ? 'plus open' : 'plus'}></span>
-			</div>
-			<button className="authorization-block__create-account">Log in</button>
 
-			<p className="authorization-block__log-in">No account?
-				<span className="authorization-block__link" onClick={changeAuth}> Create one</span>
-			</p>
+			</div>
+
+
+			<button className="authorization-block__create-account"
+
+			>Create account
+			</button>
+
+			<p className="authorization-block__log-in">Already have an account? <span
+				className="authorization-block__link" onClick={changeAuth}>Log in</span></p>
 
 		</form>
 
@@ -102,4 +114,4 @@ function Login({ changeAuth, clickCheckPassword, checkPassword }) {
 	);
 }
 
-export default Login;
+export default Registration;

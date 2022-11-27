@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
+function Login({ changeAuth, clickCheckPassword, checkPassword }) {
+
+	const [errorLog, setErrorLog] = useState(false)
 
 	const {
 		register,
@@ -15,7 +17,7 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 	const url = "http://127.0.0.1:8000"
 	const onSubmit = (data, e) => {
 		e.preventDefault()
-		fetch(`${url}/users/user/`, {
+		fetch(`${url}/users/login/`, {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
@@ -24,26 +26,34 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 				"Accept": "*/*"
 			}
 		})
-			.then(data => data.json())
+			.then(data => {
+				if (data.status === 200) {
+					console.log('yes');
+				} else {
+					setErrorLog(true)
+				}
+			})
+
 			.then(r => console.log(r))
 		console.log(JSON.stringify(data))
+
+
 	}
-
 	return (
-
 		<form className="block__authorization authorization-block"
 			onSubmit={handleSubmit(onSubmit)}
 			noValidate
 		>
 
 			<div>
-				<input type="text" className="authorization-block__google-input form__input " />
+				<input type="text" className="authorization-block__google-input form__input" />
 			</div>
 
 			<span className="authorization-block__text">or</span>
-			<div className={"relative"}>
+
+			<div className="relative">
 				<input
-					{...register("email", {
+					{...register("name", {
 						required: "Обязательное поле",
 						minLength: {
 							value: 5,
@@ -54,24 +64,21 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 							message: "Максимальная длина 35 символов"
 						},
 						pattern: {
-							value: /\w+@\w+\.\w+/,
+							value: /\w/,
 							message: "Некорректное поле"
 						},
 
 					})}
-
-					type="email" className={errors?.email ? "authorization-block__password form__input relative" +
-						" border-red-500" : "authorization-block__password form__input relative"} placeholder="Email"
-
-				/>
-				{errors.email &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.email?.message || "Error!"}</p>}
+					type="text" className={errors?.name ? "authorization-block__password form__input relative" +
+						" border-red-500" : "authorization-block__password form__input relative"}
+					placeholder="Email or Login" />
+				{errors.name &&
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.name?.message || "Error!"}</p>}
 			</div>
-
 			<div className={"relative"}>
 				<input
 					{...register("password", {
-						required: "Обязателное поле",
+						required: "Обязательное поле",
 						minLength: {
 							value: 4,
 							message: "Минимальная длина 4 символов"
@@ -88,25 +95,18 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 					})}
 
 					type={checkPassword ? 'text' : 'password'} className={errors?.password ? "authorization-block__password form__input relative" +
-						" border-red-500" : "authorization-block__password form__input relative"}
-					placeholder="Password"
+						" border-red-500" : "authorization-block__password form__input relative"} placeholder="Password" />
 
-				/>
 				{errors.password &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
 
 				<span onClick={clickCheckPassword} className={checkPassword ? 'plus open' : 'plus'}></span>
-
 			</div>
-
-
-			<button className="authorization-block__create-account"
-
-			>Create account
-			</button>
-
-			<p className="authorization-block__log-in">Already have an account? <span
-				className="authorization-block__link" onClick={changeAuth}>Log in</span></p>
+			<button className="authorization-block__create-account">Log in</button>
+			<span className={'authorization-block__errorLogin'}>{errorLog ? 'Неверный логин или пароль' : ''}</span>
+			<p className="authorization-block__log-in">No account?
+				<span className="authorization-block__link" onClick={changeAuth}> Create one</span>
+			</p>
 
 		</form>
 
@@ -114,4 +114,4 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 	);
 }
 
-export default Registration;
+export default Login;
