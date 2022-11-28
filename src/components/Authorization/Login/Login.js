@@ -2,7 +2,14 @@ import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import {Router, Route, Link} from "react-router-dom";
 
+<<<<<<<< HEAD:src/components/Authorization/Login/Login.jsx
 function Login({changeAuth, clickCheckPassword, checkPassword}) {
+========
+function Login({ changeAuth, clickCheckPassword, checkPassword }) {
+
+	const [errorLog, setErrorLog] = useState(false)
+
+>>>>>>>> 5895c2ebe4c04375c0dffaedeae69ea643dcd22e:src/components/Authorization/Login/Login.js
 	const {
 		register,
 		formState: {
@@ -24,9 +31,18 @@ function Login({changeAuth, clickCheckPassword, checkPassword}) {
 				"Accept": "*/*"
 			}
 		})
-			.then(data => data.json())
+			.then(data => {
+				if (data.status === 200) {
+					console.log('yes');
+				} else {
+					setErrorLog(true)
+				}
+			})
+
 			.then(r => console.log(r))
 		console.log(JSON.stringify(data))
+
+
 	}
 	return (
 		<form className="block__authorization authorization-block"
@@ -53,7 +69,7 @@ function Login({changeAuth, clickCheckPassword, checkPassword}) {
 							message: "Максимальная длина 35 символов"
 						},
 						pattern: {
-							value: /\w+@\w+\.\w+/,
+							value: /\w/,
 							message: "Некорректное поле"
 						},
 
@@ -62,12 +78,12 @@ function Login({changeAuth, clickCheckPassword, checkPassword}) {
 					" border-red-500" : "authorization-block__password form__input relative"}
 					placeholder="Email or Login"/>
 				{errors.name &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.name?.message || "Error!"}</p>}
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.name?.message || "Error!"}</p>}
 			</div>
 			<div className={"relative"}>
 				<input
 					{...register("password", {
-						required: "Обязателное поле",
+						required: "Обязательное поле",
 						minLength: {
 							value: 4,
 							message: "Минимальная длина 4 символов"
@@ -89,7 +105,7 @@ function Login({changeAuth, clickCheckPassword, checkPassword}) {
 					placeholder="Password"/>
 
 				{errors.password &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
 
 
 				<span className={"absolute right-3 bottom-2 top-2"} onClick={clickCheckPassword}>{
@@ -109,7 +125,7 @@ function Login({changeAuth, clickCheckPassword, checkPassword}) {
 
 			</div>
 			<button className="authorization-block__create-account">Log in</button>
-
+			<span className={'authorization-block__errorLogin'}>{errorLog ? 'Неверный логин или пароль' : ''}</span>
 			<p className="authorization-block__log-in">No account?
 				<span className="authorization-block__link" onClick={changeAuth}> Create one</span>
 			</p>

@@ -65,13 +65,13 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 
 				/>
 				{errors.email &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.email?.message || "Error!"}</p>}
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.email?.message || "Error!"}</p>}
 			</div>
 
 			<div className={"relative"}>
 				<input
 					{...register("password", {
-						required: "Обязателное поле",
+						required: "Обязательное поле",
 						minLength: {
 							value: 4,
 							message: "Минимальная длина 4 символов"
@@ -93,7 +93,7 @@ function Registration({ changeAuth, clickCheckPassword, checkPassword }) {
 
 				/>
 				{errors.password &&
-					<p className={"absolute bottom-[-24px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
+					<p className={"absolute bottom-[-22px] left-1 text-md text-red-500 font-medium"}>{errors?.password?.message || "Error!"}</p>}
 
 				<span onClick={clickCheckPassword} className={checkPassword ? 'plus open' : 'plus'}></span>
 
